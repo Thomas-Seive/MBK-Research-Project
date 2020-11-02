@@ -4,6 +4,10 @@ def axis(arr_in, rad, shell=False, axes_out=False, fix_volume=True, quiet=False)
     """Compute axis ratios iteratively.
 
     WORK IN PROGRESS -- Needs to be checked.
+    2D VERSION -- Worked on by Thomas Seive. Primary purpose is to calculate
+    the ellipticity of a galaxy while only considering one projection (two axes).
+    
+
 
     May want to add capability to compute axis ratios at multiple
     different radii in one function call (w/ a loop?) 
