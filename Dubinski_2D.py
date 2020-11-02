@@ -7,7 +7,7 @@ def axis(arr_in, rad, shell=False, axes_out=False, fix_volume=True, quiet=False)
     2D VERSION -- Worked on by Thomas Seive. Primary purpose is to calculate
     the ellipticity of a galaxy while only considering one projection (two axes).
     Here is just a small change to the code to try and test this github push/pull feature
-
+    Here is another line that I've added. Slowly getting the hang of this git stuff!
 
     May want to add capability to compute axis ratios at multiple
     different radii in one function call (w/ a loop?) 
