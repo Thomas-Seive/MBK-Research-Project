@@ -11,6 +11,7 @@ def axis(arr_in, rad, shell=False, axes_out=False, fix_volume=True, quiet=False)
     Adding this line for the github test on Mac; another test to see if I can add without
     needing to log in to github
     Managed to make a change on my mac and get the change on my pc! Let's do the reverse
+    Don't even need to close the file for it to refresh with the new changes! (at least on mac)
 
     May want to add capability to compute axis ratios at multiple
     different radii in one function call (w/ a loop?) 
