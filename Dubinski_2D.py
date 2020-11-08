@@ -10,6 +10,7 @@ def axis(arr_in, rad, shell=False, axes_out=False, fix_volume=True, quiet=False)
     Here is another line that I've added. Slowly getting the hang of this git stuff!
     Adding this line for the github test on Mac; another test to see if I can add without
     needing to log in to github
+    Managed to make a change on my mac and get the change on my pc! Let's do the reverse
 
     May want to add capability to compute axis ratios at multiple
     different radii in one function call (w/ a loop?) 
