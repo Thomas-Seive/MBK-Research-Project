@@ -44,11 +44,11 @@ def axis(arr_in, rad, shell=False, axes_out=False, fix_volume=True, quiet=False)
         """calculate the modified moment of inertia tensor and get its eigenvalues and eigenvalues"""
         tensor=np.zeros([2,2])
         # given initial values for primary axes, compute ellipsoidal
-        # radius of each particle
-        rp2=(arr_in[:,0]**2/axrat_in[0]**2 + arr_in[:,1]**2/axrat_in[1]**2) #changed this line
+        # radius of each particle (rp2 is not square rooted because it is squared in the next step, i.e. they cancel)
+        rp2=(arr_in[:,0]**2/axrat_in[0]**2 + arr_in[:,1]**2/axrat_in[1]**2) #(Thomas)changed this line
 
-        # construct the moment of inerial tensor to be diagonalized:
-        for i in range(2): #changed this line
+        # construct the moment of inertial tensor to be diagonalized:
+        for i in range(2): #(Thomas)changed this line, rp2 is the "a" from the paper
             for j in range(2):
                 tensor[i,j]=(arr_in[:,i]*arr_in[:,j]/rp2).sum()
         
@@ -60,7 +60,7 @@ def axis(arr_in, rad, shell=False, axes_out=False, fix_volume=True, quiet=False)
 
     cnt=0
     # initial guess for principal axes:
-    evs0=np.array([[1e0,0e0],[0e0, 1e0]]) #changed this line
+    evs0=np.array([[1e0,0e0],[0e0, 1e0]]) #(Thomas) changed this line
     # initial guess for axis ratios:
     axes=np.array([1e0,1e0])
     avdiff=1e0
@@ -70,11 +70,11 @@ def axis(arr_in, rad, shell=False, axes_out=False, fix_volume=True, quiet=False)
     # fixed portion of code (From June 8, 2017)
     while avdiff > 0.01:
         axtemp=axes.copy()
-        # compute ellipsoidal radius of each particle:
+        # compute ellipsoidal radius of each particle:  (Thomas)This is a radius for each particle
         dist2=(
                arr_in[:,0]**2/axes[0]**2 +
                arr_in[:,1]**2/axes[1]**2)**0.5
-            #Changed the line above
+            #(Thomas)Changed the line above
         # find locations of particles between rad[0] and rad[1]
         if not fix_volume:
             r_ell=rad
@@ -94,15 +94,18 @@ def axis(arr_in, rad, shell=False, axes_out=False, fix_volume=True, quiet=False)
 
         # get eigenvectors and eigenvalues.  Note: the inertia tensor
         # is a real symmetric matrix, so the eigenvalues should be real.
+        # locs is the location (radius) for particles
+        # axtemp is the current axial ratios (q/s) 
         axrat=calc_inertia(arr_in[locs], axtemp)
         if abs(np.imag(axrat[0])).max() > 0.:
             raise ValueError('Error: eigenvalues are not all real!')
 
         evals=np.real(axrat[0])
         evecs=axrat[1]
-        # get axis ratios from eigenvalues:
+        # get axis ratios from eigenvalues: (Thomas) Changed this line; have no third component with which
+        # to calculate q and s
         axes=np.sqrt([evals[1]/evals[0], 
-                          evals[2]/evals[0]])
+                          evals[0]/evals[1]])
         # rotate particles (and previous eigenvector array) into new
         # basis:
         arr_in=np.dot(arr_in, evecs)
@@ -115,7 +118,7 @@ def axis(arr_in, rad, shell=False, axes_out=False, fix_volume=True, quiet=False)
 
         # used to check how close most recent rotation is to zero
         # rotation (i.e. how close evecs is to the identity matrix)
-        avd2=2e0-abs(evecs[0,0])-abs(evecs[1,1]) #changed this line
+        avd2=2e0-abs(evecs[0,0])-abs(evecs[1,1]) #(Thomas)changed this line
         if quiet == False:
             # print axis ratios relative to major axis
             print ('axis ratios: ', (np.sort(evals/evals.max()))**0.5)
