@@ -105,7 +105,7 @@ def axis(arr_in, rad, shell=False, axes_out=False, fix_volume=True, quiet=False)
         # get axis ratios from eigenvalues: (Thomas) Changed this line; have no third component with which
         # to calculate q and s
         axes=np.sqrt([evals[1]/evals[0], 
-                          evals[0]/evals[1]])
+                         ])
         # rotate particles (and previous eigenvector array) into new
         # basis:
         arr_in=np.dot(arr_in, evecs)
