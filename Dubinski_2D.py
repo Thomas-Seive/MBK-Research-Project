@@ -114,7 +114,6 @@ def axis(arr_in, rad, shell=False, axes_out=False, fix_volume=True, quiet=False)
         # compute difference between current and previous iteration
         # for axis ratios and diagonal of eigenvector matrix
         avd0=abs((axtemp[0]-axes[0])/(axtemp[0]+axes[0]))
-        avd1=abs((axtemp[1]-axes[1])/(axtemp[1]+axes[1]))
 
         # used to check how close most recent rotation is to zero
         # rotation (i.e. how close evecs is to the identity matrix)
@@ -125,7 +124,7 @@ def axis(arr_in, rad, shell=False, axes_out=False, fix_volume=True, quiet=False)
             print ('deviations from previous iteration: ' + \
             '%.*e, %.*e, %.*e' % (4, avd0, 4, avd1, 4, avd2))
             print ('number of particles in shell / sphere: ', np.size(locs))
-        avdiff=max(avd0, avd1, avd2)
+        avdiff=max(avd0, avd2)
         cnt+=1
 
     # normalize eigenvalues to largest eigenvalue
